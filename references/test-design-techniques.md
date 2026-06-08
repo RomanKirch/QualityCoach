@@ -1,4 +1,4 @@
-﻿# Test Design Techniques
+# Test Design Techniques
 
 Use this reference when the user asks for test design, test cases, test ideas, test coverage,
 test techniques, or how to verify requirements.

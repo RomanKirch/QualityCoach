@@ -1,4 +1,4 @@
-﻿# Agile Quality Gates
+# Agile Quality Gates
 
 Lightweight, risk-based quality checks. Make quality decisions explicit — not bureaucratic overhead.
 

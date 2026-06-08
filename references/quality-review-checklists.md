@@ -1,4 +1,4 @@
-﻿# Quality Review Checklists
+# Quality Review Checklists
 
 Coaching questions per characteristic. Use in requirements reviews, 3 Amigos sessions,
 refinement, or architecture reviews.

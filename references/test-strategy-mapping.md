@@ -1,4 +1,4 @@
-﻿# Test Strategy Mapping
+# Test Strategy Mapping
 
 | Characteristic | Primary Test Approaches | Required Evidence | Common Blind Spot |
 |---|---|---|---|

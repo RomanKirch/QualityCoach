@@ -1,4 +1,4 @@
-﻿# Risk-Based Testing
+# Risk-Based Testing
 
 Use this guide when testing effort must be prioritised. Risk-based testing means test analysis,
 design, execution, and reporting are guided by product risk — you spend effort where failure

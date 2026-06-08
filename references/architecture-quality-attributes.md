@@ -1,4 +1,4 @@
-﻿# Architecture Quality Attributes
+# Architecture Quality Attributes
 
 A quality requirement is architecturally significant when satisfying it requires a specific
 deployment topology, communication pattern, structural decision, or a trade-off that cannot

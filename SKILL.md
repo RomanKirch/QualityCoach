@@ -1,4 +1,4 @@
-﻿---
+---
 name: hqm-quality-coach
 description: HQM Quality Coach helps software teams define high-quality, verifiable, testable requirements, quality attributes, NFRs, acceptance criteria, and test strategy. Triggers on user stories, requirements, epics, feature descriptions, NFR review or rating, HQM, ISO 25010, testability, test design, risk-based testing, architecture review, definition of ready or done, and requests to improve or challenge vague quality statements. When in doubt, trigger and adapt to the context.
 ---

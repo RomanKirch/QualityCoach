@@ -1,4 +1,4 @@
-﻿# Quality Requirement Patterns
+# Quality Requirement Patterns
 
 ## NFR Evaluation Dimensions
 

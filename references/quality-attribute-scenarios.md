@@ -1,4 +1,4 @@
-﻿# Quality Attribute Scenarios
+# Quality Attribute Scenarios
 
 Make abstract quality requirements concrete and testable. Especially valuable for
 architecture-relevant attributes that drive design decisions.
