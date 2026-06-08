@@ -26,6 +26,7 @@ Write like an experienced quality coach sitting on a review board — sharp, dec
 | **Detailed Review** | User explicitly asks for a deep/detailed/full report, complete NFR matrix, or workshop prep | No |
 | **NFR Rating** | User wants existing NFRs rated/improved (A-E) | No |
 | **Test Strategy** | User asks how to test / which technique / how to prioritise testing | No |
+| **Backlog Mode** | User asks for Jira items, backlog items, implementation tasks, NFR stories, quality enablers, or follow-up tasks | No |
 
 **Rule:** Default to **Executive Review** unless the user explicitly asks for a deep report, detailed
 report, full analysis, complete NFR matrix, or workshop preparation. The Executive Review is a
@@ -87,21 +88,32 @@ verification method. If no threshold is known, propose a placeholder and mark it
 
 ## Step 2 — Produce the Executive Review
 
-Follow the full HTML template in `references/output-templates.md`.
+Follow the full HTML template in `references/output-templates.md`. All styling comes from
+`references/design-system.md` — **reuse that design system; do not improvise colors** unless the user
+asks for a custom theme.
 
-**Rendering — this matters:**
-- **When the surface supports artifacts (claude.ai, Claude Code, Cowork), render the whole Executive
-  Review as a single HTML artifact** using the template's `<style>` + `.hqm-doc` markup. This is the
-  intended "review board" experience and the strong default.
+**Rendering — strict:**
+- **If the environment supports artifacts, ALWAYS render the Executive Review as ONE self-contained
+  HTML artifact.** Do not answer the Executive Review as plain markdown unless artifacts are
+  unavailable. The artifact must include **all required CSS inline in a `<style>` block** and must not
+  rely on external stylesheets or required web fonts.
+- **The first visible screen must contain: title, context line, summary cards, and HQM wheel** (with
+  its „Relevant HQM Focus" tags).
 - The hero is a **two-column layout**: left = a **2×2 grid of summary cards** (Gesamtbewertung ·
-  Testbarkeit · Kritischste Lücke · Empfohlene Entscheidung); right = the **HQM wheel** panel.
-  **Never render the four summary values as a markdown table** — they are cards.
+  Testbarkeit · Kritischste Lücke · Empfohlene Entscheidung); right = the **HQM wheel panel + focus
+  tags**. **Never render the four summary values as a markdown table** — they are cards.
+- **Acceptance criteria are cards** (`.hqm-ak-list` / `.hqm-ak-row`), **never a markdown table** —
+  worst AK first, badge right-aligned, max 3-4 lines each.
 - **HQM wheel image:** the skill ships `assets/hqm-wheel.png`. A relative `src` will not resolve inside
-  an artifact, so **read that file and embed it as a base64 `data:image/png;base64,…` URI** in the
-  `<img>`. If you cannot embed it, use the `.hqm-wheel-placeholder` block. Keep the wheel in the right
-  column at its max-width — it supports the analysis, it must not dominate.
-- If artifacts are genuinely unavailable, fall back to bold "card" lines (not a wide table) and omit
-  the image — but prefer the artifact.
+  an artifact, so **read that file and embed it as a base64 `data:image/png;base64,…` URI**. If you
+  cannot embed it, drop the `<img>` but keep the focus tags. The wheel must not dominate — it supports
+  the analysis.
+- **Relevant HQM Focus:** show **max 4** ISO 25010 dimensions that are *actually relevant* to this
+  requirement (primary focus first, secondary after). This is the analytical use of the wheel — never
+  a generic eight-dimension list.
+
+**Fallback (artifacts genuinely unavailable):** markdown cards (bold lines, not a wide table), summary
+**not** as a table, AK as short bold blocks, omit the image but **keep the „Relevant HQM Focus" text**.
 
 **Body sections, in order** (HTML in the same artifact; omit one only if it adds nothing):
 1. **Title + context line** (System · Context · Reviewer)
@@ -119,6 +131,21 @@ Keep each section tight. Badges and short blocks over walls of prose. No wide ta
 
 ---
 
+## Backlog Mode
+
+When the user asks for Jira items, backlog items, implementation tasks, NFR stories, quality enablers,
+or follow-up tasks, output **Jira-ready backlog items** (markdown — meant to be copied into a tracker;
+no artifact needed). Derive them from the P1/P2 gaps and the undecided design questions. Each item:
+
+- **Title** (imperative, specific) · **Type** (Story / Enabler / Task / Spike) · **Priority** (P1-P4)
+- **ISO 25010** dimension(s) · **Owner** role
+- **Description** (1-3 sentences) · **Acceptance Criteria** (verifiable) · **Verification** method
+
+Map type to intent: **Spike** for undecided architecture (e.g. propagation model), **Enabler** for
+NFRs, **Story** for user-facing behaviour, **Task** for concrete fixes. See the Backlog template in
+`references/output-templates.md`. Every item carries measurable acceptance criteria and a verification
+method — no vague enablers.
+
 ## Style Rules
 
 - Start with the punchline; the dashboard must let the reader grasp the verdict without scrolling.
@@ -135,7 +162,8 @@ Keep each section tight. Badges and short blocks over walls of prose. No wide ta
 
 | Need | File |
 |---|---|
-| **Output templates** (Executive, Detailed, AK review, NFR table, Test strategy, Follow-ups) | `references/output-templates.md` |
+| **Output templates** (Executive, Detailed, AK cards, NFR table, Test strategy, Backlog, Follow-ups) | `references/output-templates.md` |
+| **Visual design system** (palette, cards, badges, grid, tables, buttons) — reuse for all HTML artifacts | `references/design-system.md` |
 | HQM Quality Wheel as a completeness checklist | `assets/hqm-wheel-reference.md` |
 | ISO 25010 characteristics, SLO patterns, example criteria | `references/iso25010.md` |
 | NFR evaluation dimensions, A-E rating, anti-patterns, refinement template | `references/quality-requirement-patterns.md` |
