@@ -90,13 +90,26 @@ two bands, ask one calibrating question rather than defaulting to maximum depth.
 The bands are a dial, not rigid tiers — interpolate. The goal is proportionality: effort should
 track risk.
 
-### Step 1 — Clarify
+### Step 1 — Clarify, then STOP and wait
 
-Ask clarifying questions sized to the risk band from Step 0 (Light: 0-1, Standard: 2-3, Deep: as
-many as the risk genuinely requires). Do not skip straight to analysis on Standard/Deep work.
+This skill is a **dialogue**, not a one-shot report generator. Run the interaction in two turns:
 
-Address: scale and load, criticality and business impact, regulatory context, deployment topology,
-user population and accessibility needs, what quality work has already been done.
+**Turn 1 (this turn):**
+1. State your risk read in **1-2 sentences** (the Step 0 band + why), so the user can correct it.
+2. Ask your clarifying questions, sized to the band (Light: 0-1, Standard: 2-3, Deep: 3-5).
+3. **STOP. Do not produce the analysis or report in this turn.** End by inviting the user to answer
+   — e.g. *"Answer what you can and I'll do the full review. If you'd rather I just run with sensible
+   assumptions, say so and I'll proceed."*
+
+Only skip the wait if the user **explicitly** asks for the analysis immediately, or says to assume
+defaults. A rich input with acceptance criteria is **not** permission to skip — there are almost
+always quality-relevant unknowns (scale, threat model, compliance, ownership) that the written ACs
+do not answer, and those unknowns change the analysis.
+
+**Turn 2 (after the user answers):** proceed to Step 2 and produce the report.
+
+Good questions address: scale and load, criticality and business impact, regulatory context,
+deployment topology, user population and accessibility needs, what quality work has already been done.
 
 ### Step 2 — Analyse
 
@@ -171,43 +184,61 @@ Otherwise use the report template below.
 
 ## Report Template
 
+**Formatting principles — keep it readable, not a report dump:**
+- **Lead with the punchline.** A one-line verdict, then the most critical findings first. The reader
+  should get the top 2-3 things to fix without scrolling.
+- **Prose over mega-tables.** Present the important gaps (P1, and P2 if few) as short structured
+  blocks, not as one giant row each. Reserve a table only for the at-a-glance overview, and keep
+  any table to **max 4 columns** — wide tables are unreadable in chat.
+- **Cut empty sections.** Omit any section that adds nothing for this request. A focused 5-section
+  answer beats a complete 9-section template.
+- **End with a choice, not a wall.** Close by offering 2-3 concrete next steps the user can pick,
+  so the conversation continues.
+
+### Verdict (1 line)
+[e.g. "Solid feature spec, but three architecturally-significant decisions are undefined and one
+P1 security gap (cross-tenant access) must be closed before design."]
+
 ### Context Summary
-[2-4 sentences: system type, scale, criticality, regulatory context, what the requirement covers
-and what it is silent on]
+[2-3 sentences: system, scale, criticality, regulatory context; what the input covers and what it
+is silent on.]
 
-### Quality Gaps and NFR Proposals
+### Top Findings
+[The P1 gaps as compact blocks — not table rows. For each:]
 
-| # | Characteristic | Gap / Risk | NFR Proposal | Measurable Criterion | Owner | Priority |
-|---|---|---|---|---|---|---|
+**P1 · [Characteristic] — [short title]**
+- **Gap:** [what is missing/undefined]
+- **Proposed NFR:** [what must be true]
+- **Measurable:** [the verifiable threshold]
+- **Owner:** [who decides good-enough]
 
-### Acceptance Criteria Additions
-[Given/When/Then; P1/P2 gaps only; focus on the verifiable threshold]
+[Repeat for each P1. Usually 2-4 of them.]
 
-### Verification and Test Ideas
-[Grouped by area; Automated vs. Manual; include operational/monitoring approach. Prioritise by
-product risk and name the test technique where it adds clarity. See `references/test-strategy-mapping.md`
-(approach per characteristic), `references/risk-based-testing.md` (prioritisation), and
-`references/test-design-techniques.md` (technique selection).]
+### All Gaps at a Glance
+[A compact overview of *every* gap including lower priority — max 4 columns:]
+
+| Prio | Characteristic | Gap → proposed NFR (one line) | Owner |
+|---|---|---|---|
+
+### Acceptance Criteria to Add
+[Given/When/Then for the P1/P2 gaps only. Short.]
+
+### Verification Approach
+[Concise, grouped by the highest risks. Name the test technique where it adds clarity; flag
+Automated vs. Manual; include one operational/monitoring approach. See `references/test-strategy-mapping.md`,
+`references/risk-based-testing.md`, `references/test-design-techniques.md`.]
 
 ### Architecture Implications
-[Only if quality requirements drive design decisions. See `references/architecture-quality-attributes.md`.]
+[Only if quality requirements drive design decisions — name the decision, the options, the trade-off.
+See `references/architecture-quality-attributes.md`.]
 
-### Risks and Assumptions
+### Open Questions & HQM Notes
+[The P1 decisions the team must make before it is sprint-ready. Fold in any Process/People/Values
+observation here only if it genuinely explains a gap. Keep it tight.]
 
-| Risk | Impact if unaddressed |
-|---|---|
-
-### HQM Observations
-[Process, People, or Values gaps. Only if genuinely relevant.]
-
-### Open Questions for Refinement
-[Numbered; P1 decisions the team must make before sprint-ready]
-
-### Hints by Role
-[Actionable hints for relevant roles: PO, Developer, Tester/QE, Architect, SRE]
-
-### Suggested Next Step
-[One concrete action]
+### Next Steps — pick one
+[Offer 2-3 concrete options, e.g.: "1) I draft the testable rewrite of AK04. 2) I turn the P1 gaps
+into ready-to-paste acceptance criteria. 3) I prep a Risk Storming agenda for the refinement."]
 
 ---
 
