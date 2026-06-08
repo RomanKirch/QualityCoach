@@ -87,24 +87,35 @@ verification method. If no threshold is known, propose a placeholder and mark it
 
 ## Step 2 — Produce the Executive Review
 
-Follow the Executive Review template in `references/output-templates.md`. Structure (omit a section
-only if it genuinely adds nothing):
+Follow the full HTML template in `references/output-templates.md`.
 
-1. **Title** — `# Feature Evaluation: [Name]` + a context line (System · Context · Reviewer)
-2. **Dashboard** — a 2×2 markdown card table: Gesamtbewertung · Testbarkeit · Kritischste Lücke ·
-   Empfohlene Entscheidung. (Markdown table renders reliably; use HTML cards only inside an artifact.)
-3. **Akzeptanzkriterien – Bewertung** — each AK with a status badge (✅ Klar · ⚠️ Unklar · 🟡 Schwach ·
-   ❌ Kritisch), a one-line assessment, testability note, what's missing, suggested improvement.
-4. **Identifizierte Qualitätslücken** — compact table, **max 5 columns**:
-   `Prio | ISO 25010 | HQM Lens | Gap | Empfohlene Massnahme`.
-5. **NFR-Vorschläge** — compact table: `Prio | Qualität | NFR | Messbares Kriterium | Verifikation`.
-6. **Top 3 Blocking Questions** — the three most important design/test-blocking decisions. Extra
-   questions go under a short „Weitere offene Fragen" line.
-7. **MVP Readiness** — one of: `Ready` · `Ready with conditions` · `Needs refinement` · `Not ready`,
-   plus 2-3 sentences of reasoning and the conditions to fulfil.
-8. **Nächste mögliche Schritte** — action buttons (markdown button-style blocks) the user can click/copy.
+**Rendering — this matters:**
+- **When the surface supports artifacts (claude.ai, Claude Code, Cowork), render the whole Executive
+  Review as a single HTML artifact** using the template's `<style>` + `.hqm-doc` markup. This is the
+  intended "review board" experience and the strong default.
+- The hero is a **two-column layout**: left = a **2×2 grid of summary cards** (Gesamtbewertung ·
+  Testbarkeit · Kritischste Lücke · Empfohlene Entscheidung); right = the **HQM wheel** panel.
+  **Never render the four summary values as a markdown table** — they are cards.
+- **HQM wheel image:** the skill ships `assets/hqm-wheel.png`. A relative `src` will not resolve inside
+  an artifact, so **read that file and embed it as a base64 `data:image/png;base64,…` URI** in the
+  `<img>`. If you cannot embed it, use the `.hqm-wheel-placeholder` block. Keep the wheel in the right
+  column at its max-width — it supports the analysis, it must not dominate.
+- If artifacts are genuinely unavailable, fall back to bold "card" lines (not a wide table) and omit
+  the image — but prefer the artifact.
 
-Keep each section tight. Badges and short blocks over walls of prose. No wide tables.
+**Body sections, in order** (HTML in the same artifact; omit one only if it adds nothing):
+1. **Title + context line** (System · Context · Reviewer)
+2. **Hero** — summary cards (left) + wheel (right)
+3. **Akzeptanzkriterien – Bewertung** — one card per AK with a status badge (✅ Klar · ⚠️ Unklar ·
+   🟡 Schwach · ❌ Kritisch): assessment, testability, what's missing, improvement. Worst first.
+4. **Identifizierte Qualitätslücken** — table, **max 5 columns**: Prio · ISO 25010 · HQM Lens · Gap ·
+   Empfohlene Massnahme.
+5. **NFR-Vorschläge** — table: Prio · Qualität · NFR · Messbares Kriterium · Verifikation.
+6. **Top 3 Blocking Questions** — the three most important design/test-blocking decisions.
+7. **MVP Readiness** — Ready · Ready with conditions · Needs refinement · Not ready + 2-3 sentences.
+8. **Nächste mögliche Schritte** — action buttons.
+
+Keep each section tight. Badges and short blocks over walls of prose. No wide tables (> 5 columns).
 
 ---
 

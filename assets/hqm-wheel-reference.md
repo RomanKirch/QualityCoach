@@ -5,8 +5,7 @@ ISO 25010 product-quality dimensions and their sub-characteristics, then extend 
 observations across **Process, People, and Values**. The wheel exists to catch *missing* dimensions —
 it is not a prompt to mechanically list all of them. Only surface a dimension when there is a real gap.
 
-> Do not render the wheel unless the user explicitly asks for a visual. If a PNG of the wheel is
-> placed next to this file (e.g. `assets/hqm-wheel.png`), reference it only on request.
+> The wheel image ships as `assets/hqm-wheel.png`. In the Executive Review it is shown in the hero's right column (embed it as a base64 data URI - see `references/output-templates.md`). Elsewhere, do not render it unless the user asks for a visual; use it as the mental checklist below.
 
 ## Inner ring — ISO 25010 product quality (8 characteristics)
 
