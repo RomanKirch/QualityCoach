@@ -11,9 +11,12 @@ All visual styling follows `references/design-system.md` — do not improvise co
 - **First visible screen must contain:** title, context line, summary cards, HQM wheel (with focus
   tags). The four summary values are **cards, never a markdown table**.
 - **Acceptance criteria are cards, never a markdown table.**
-- **HQM wheel image:** ship-path `assets/hqm-wheel.png`. A relative `src` will not resolve in an
-  artifact — **read the file and embed it as a base64 `data:image/png;base64,…` URI**. If you cannot
-  embed it, drop the `<img>` and keep the `.hqm-focus` panel (the focus tags are the analytical part).
+- **HQM wheel (analytical):** the skill ships **`assets/hqm-wheel.svg`** — an 8-segment ISO 25010
+  donut. **Inline the SVG directly** into the artifact (it is plain text, lightweight, always renders —
+  no base64). Then **highlight the relevant ISO dimensions** by adding the `focus` class to their
+  segments and **dim the rest** with the `dim` class. This is the "luxury" dynamic wheel: it visually
+  shows where this requirement's quality risk concentrates. Keep the `.hqm-focus` tag list below as the
+  textual key. (The old `assets/hqm-wheel.png` remains only as a static fallback.)
 - **Fallback (no artifact possible):** markdown cards (bold lines, not a wide table), summary not as a
   table, omit the image but **keep the „Relevant HQM Focus" text**.
 
@@ -42,6 +45,7 @@ All visual styling follows `references/design-system.md` — do not improvise co
 
 .hqm-wheel-panel{background:#fff;border:1px solid var(--hqm-border);border-radius:16px;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:250px;}
 .hqm-wheel{width:100%;max-width:300px;height:auto;opacity:.92;}
+.hqm-svg-wheel{width:100%;max-width:300px;height:auto;}
 .hqm-wheel-caption{margin-top:8px;font-size:13px;color:var(--hqm-muted);text-align:center;}
 .hqm-focus{margin-top:14px;width:100%;text-align:center;}
 .hqm-focus-label{font-size:13px;color:var(--hqm-muted);margin-bottom:6px;}
@@ -89,7 +93,12 @@ table.hqm th{background:var(--hqm-card);}
       <div class="hqm-card"><div class="hqm-label">Empfohlene Entscheidung</div><div class="hqm-value">[MVP-fähig mit Auflagen]</div></div>
     </div>
     <div class="hqm-wheel-panel">
-      <img src="[BASE64_DATA_URI]" alt="HQM Quality Wheel" class="hqm-wheel" />
+      <!-- WHEEL: paste the full contents of assets/hqm-wheel.svg here (inline). Then, on each
+           segment <path class="seg s-XXX"> and its <text class="wlbl l-XXX">, add the class
+           "focus" for ISO dimensions relevant to THIS requirement and "dim" for the rest.
+           Segment keys: functional · performance · compatibility · usability · reliability ·
+           security · maintainability · portability. Max ~4 focus segments. -->
+      [INLINE_SVG_FROM_assets/hqm-wheel.svg_WITH_focus/dim_CLASSES]
       <div class="hqm-wheel-caption">ISO 25010 / HQM Quality Wheel</div>
       <div class="hqm-focus">
         <div class="hqm-focus-label">Relevant HQM Focus</div>

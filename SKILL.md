@@ -104,13 +104,14 @@ asks for a custom theme.
   tags**. **Never render the four summary values as a markdown table** — they are cards.
 - **Acceptance criteria are cards** (`.hqm-ak-list` / `.hqm-ak-row`), **never a markdown table** —
   worst AK first, badge right-aligned, max 3-4 lines each.
-- **HQM wheel image:** the skill ships `assets/hqm-wheel.png`. A relative `src` will not resolve inside
-  an artifact, so **read that file and embed it as a base64 `data:image/png;base64,…` URI**. If you
-  cannot embed it, drop the `<img>` but keep the focus tags. The wheel must not dominate — it supports
-  the analysis.
-- **Relevant HQM Focus:** show **max 4** ISO 25010 dimensions that are *actually relevant* to this
-  requirement (primary focus first, secondary after). This is the analytical use of the wheel — never
-  a generic eight-dimension list.
+- **HQM wheel (dynamic, analytical):** the skill ships **`assets/hqm-wheel.svg`** — an 8-segment ISO
+  25010 donut whose segments carry classes `s-functional … s-portability`. **Inline this SVG directly**
+  into the artifact (plain text — always renders, no base64, no binary). Then **highlight the ISO
+  dimensions relevant to this requirement** by adding the `focus` class to their `<path>`/`<text>`, and
+  **dim the irrelevant ones** with the `dim` class. The result is a wheel that visually shows where
+  this requirement's quality risk concentrates — not a generic graphic. Use **max ~4** focus segments
+  (primary first). The static `assets/hqm-wheel.png` remains only as a last-resort fallback.
+- Keep the `.hqm-focus` tag list below the wheel as the textual key for the highlighted dimensions.
 
 **Fallback (artifacts genuinely unavailable):** markdown cards (bold lines, not a wide table), summary
 **not** as a table, AK as short bold blocks, omit the image but **keep the „Relevant HQM Focus" text**.
